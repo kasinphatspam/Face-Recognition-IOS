@@ -14,6 +14,14 @@
 		4F0066192AFB877700E322B0 /* Face_ProveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0066182AFB877700E322B0 /* Face_ProveTests.swift */; };
 		4F0066232AFB877700E322B0 /* Face_ProveUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0066222AFB877700E322B0 /* Face_ProveUITests.swift */; };
 		4F0066252AFB877700E322B0 /* Face_ProveUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0066242AFB877700E322B0 /* Face_ProveUITestsLaunchTests.swift */; };
+		4F0066332AFB891000E322B0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0066322AFB891000E322B0 /* LoginView.swift */; };
+		4F0066362AFB898300E322B0 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0066352AFB898300E322B0 /* Users.swift */; };
+		4F0066382AFB89F800E322B0 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0066372AFB89F800E322B0 /* Organization.swift */; };
+		4F00663A2AFB8A3900E322B0 /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0066392AFB8A3900E322B0 /* Contacts.swift */; };
+		4F00663C2AFB8B3E00E322B0 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F00663B2AFB8B3E00E322B0 /* AuthService.swift */; };
+		4F00663F2AFB93B800E322B0 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F00663E2AFB93B800E322B0 /* Connection.swift */; };
+		4FF5DA5C2AFBDA8000785920 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5DA5B2AFBDA8000785920 /* ContentViewModel.swift */; };
+		4FF5DA5E2AFBE47800785920 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5DA5D2AFBE47800785920 /* UserService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +53,14 @@
 		4F00661E2AFB877700E322B0 /* Face ProveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Face ProveUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F0066222AFB877700E322B0 /* Face_ProveUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Face_ProveUITests.swift; sourceTree = "<group>"; };
 		4F0066242AFB877700E322B0 /* Face_ProveUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Face_ProveUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4F0066322AFB891000E322B0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		4F0066352AFB898300E322B0 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		4F0066372AFB89F800E322B0 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
+		4F0066392AFB8A3900E322B0 /* Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
+		4F00663B2AFB8B3E00E322B0 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		4F00663E2AFB93B800E322B0 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
+		4FF5DA5B2AFBDA8000785920 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		4FF5DA5D2AFBE47800785920 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +111,11 @@
 		4F0066052AFB877600E322B0 /* Face Prove */ = {
 			isa = PBXGroup;
 			children = (
+				4FF5DA5F2AFC00F100785920 /* viewmodel */,
+				4F00663D2AFB8B4A00E322B0 /* services */,
+				4F0066342AFB897100E322B0 /* models */,
+				4F0066312AFB883700E322B0 /* views */,
 				4F0066062AFB877600E322B0 /* Face_ProveApp.swift */,
-				4F0066082AFB877600E322B0 /* ContentView.swift */,
 				4F00660A2AFB877700E322B0 /* Assets.xcassets */,
 				4F00660C2AFB877700E322B0 /* Face_Prove.entitlements */,
 				4F00660D2AFB877700E322B0 /* Preview Content */,
@@ -127,6 +146,43 @@
 				4F0066242AFB877700E322B0 /* Face_ProveUITestsLaunchTests.swift */,
 			);
 			path = "Face ProveUITests";
+			sourceTree = "<group>";
+		};
+		4F0066312AFB883700E322B0 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				4F0066082AFB877600E322B0 /* ContentView.swift */,
+				4F0066322AFB891000E322B0 /* LoginView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		4F0066342AFB897100E322B0 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				4F0066352AFB898300E322B0 /* Users.swift */,
+				4F0066372AFB89F800E322B0 /* Organization.swift */,
+				4F0066392AFB8A3900E322B0 /* Contacts.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		4F00663D2AFB8B4A00E322B0 /* services */ = {
+			isa = PBXGroup;
+			children = (
+				4F00663B2AFB8B3E00E322B0 /* AuthService.swift */,
+				4FF5DA5D2AFBE47800785920 /* UserService.swift */,
+				4F00663E2AFB93B800E322B0 /* Connection.swift */,
+			);
+			path = services;
+			sourceTree = "<group>";
+		};
+		4FF5DA5F2AFC00F100785920 /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				4FF5DA5B2AFBDA8000785920 /* ContentViewModel.swift */,
+			);
+			path = viewmodel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +315,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F0066362AFB898300E322B0 /* Users.swift in Sources */,
+				4F0066332AFB891000E322B0 /* LoginView.swift in Sources */,
 				4F0066092AFB877600E322B0 /* ContentView.swift in Sources */,
+				4F00663F2AFB93B800E322B0 /* Connection.swift in Sources */,
+				4F0066382AFB89F800E322B0 /* Organization.swift in Sources */,
+				4FF5DA5C2AFBDA8000785920 /* ContentViewModel.swift in Sources */,
+				4FF5DA5E2AFBE47800785920 /* UserService.swift in Sources */,
+				4F00663A2AFB8A3900E322B0 /* Contacts.swift in Sources */,
 				4F0066072AFB877600E322B0 /* Face_ProveApp.swift in Sources */,
+				4F00663C2AFB8B3E00E322B0 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
