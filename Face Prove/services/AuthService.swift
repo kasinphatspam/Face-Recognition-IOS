@@ -15,15 +15,20 @@ struct AuthResponse: Codable {
 class AuthService: Connection {
     
     private var user: Users? = nil
+    private var serverConfig: ServerConfig? = nil
     
-    func login(email: String, password: String) async throws{
+    override init() {
+        self.serverConfig = ServerConfig()
+    }
+    
+    func login(email: String, password: String) async throws {
         let body = [
             "email": email,
             "password": password
         ]
         
         let request = try await posts(
-            from: "http://192.168.0.40:3001/auth/login",
+            from: "http://\(serverConfig!.ip)/auth/login",
             parameter: body
         )
         
@@ -40,9 +45,9 @@ class AuthService: Connection {
             
             self.user = decoded.user
         }
-
+        
         task.resume()
-
+        
     }
     
     func register(email: String, password: String, firstname: String, lastname: String, personalId: String) async throws {
@@ -55,7 +60,7 @@ class AuthService: Connection {
         ]
         
         let request = try await posts(
-            from: "http://192.168.0.40:3001/auth/register",
+            from: "http://\(serverConfig!.ip)/auth/register",
             parameter: body
         )
         
@@ -72,7 +77,7 @@ class AuthService: Connection {
             
             self.user = decoded.user
         }
-
+        
         task.resume()
     }
     
@@ -80,7 +85,10 @@ class AuthService: Connection {
         
     }
     
-    func getCurrentUser() -> Users {
+    func getCurrentUser() -> Users? {
+        if (self.user == nil) {
+            return nil
+        }
         return user!
     }
 }
