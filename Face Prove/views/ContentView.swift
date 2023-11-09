@@ -12,20 +12,9 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            HStack {
-                Text("None")
-                    .bold()
-            }
-            .navigationTitle("Employee")
-            .onAppear {
-                
-                Task {
-                    do {
-                        try await viewModel.login()
-                        try await viewModel.fetch()
-                    } catch {
-                        print(error)
-                    }
+            VStack {
+                NavigationLink(destination: LoginView()){
+                    Text("Press")
                 }
             }
         }

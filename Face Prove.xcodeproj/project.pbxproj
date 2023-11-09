@@ -26,6 +26,7 @@
 		4FF5DA642AFCD84A00785920 /* ServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5DA632AFCD84A00785920 /* ServerConfig.swift */; };
 		4FF5DA662AFD5DDB00785920 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5DA652AFD5DDB00785920 /* LoginViewModel.swift */; };
 		4FF5DA692AFD617500785920 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5DA682AFD617500785920 /* Observable.swift */; };
+		4FF5DA6B2AFD66B300785920 /* Signals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5DA6A2AFD66B200785920 /* Signals.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		4FF5DA632AFCD84A00785920 /* ServerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfig.swift; sourceTree = "<group>"; };
 		4FF5DA652AFD5DDB00785920 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4FF5DA682AFD617500785920 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		4FF5DA6A2AFD66B200785920 /* Signals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signals.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				4F0066372AFB89F800E322B0 /* Organization.swift */,
 				4F0066392AFB8A3900E322B0 /* Contacts.swift */,
 				4FF5DA632AFCD84A00785920 /* ServerConfig.swift */,
+				4FF5DA6A2AFD66B200785920 /* Signals.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				4FF5DA662AFD5DDB00785920 /* LoginViewModel.swift in Sources */,
 				4F00663A2AFB8A3900E322B0 /* Contacts.swift in Sources */,
 				4FF5DA692AFD617500785920 /* Observable.swift in Sources */,
+				4FF5DA6B2AFD66B300785920 /* Signals.swift in Sources */,
 				4F0066072AFB877600E322B0 /* Face_ProveApp.swift in Sources */,
 				4FF5DA642AFCD84A00785920 /* ServerConfig.swift in Sources */,
 				4F00663C2AFB8B3E00E322B0 /* AuthService.swift in Sources */,

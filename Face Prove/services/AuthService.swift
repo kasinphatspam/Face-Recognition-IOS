@@ -12,6 +12,10 @@ struct AuthResponse: Codable {
     let user: Users
 }
 
+enum JSONDecoderError: Error {
+    case decodeFailure
+}
+
 class AuthService: Connection {
     
     private var user: Users? = nil
@@ -21,7 +25,7 @@ class AuthService: Connection {
         self.serverConfig = ServerConfig()
     }
     
-    func login(email: String, password: String) async throws {
+    func login(email: String, password: String, completion: @escaping ((Error?, Bool, Users?) -> Void)) async throws {
         let body = [
             "email": email,
             "password": password
@@ -35,19 +39,19 @@ class AuthService: Connection {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
+                completion(error, false, nil)
                 return
             }
             
             guard let decoded = try? JSONDecoder().decode(AuthResponse.self, from: data) else {
-                print("Error: Couldn't decode data into auth response")
+                completion(JSONDecoderError.decodeFailure , false, nil)
                 return
             }
             
             self.user = decoded.user
+            completion(nil, true, decoded.user)
         }
-        
         task.resume()
-        
     }
     
     func register(email: String, password: String, firstname: String, lastname: String, personalId: String) async throws {

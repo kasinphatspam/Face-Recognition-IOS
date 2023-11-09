@@ -20,8 +20,8 @@ class ContentViewModel: ObservableObject {
         try await authService.register(email: "kasinphat2@gmail.com", password: "pam40624", firstname: "Mahiru", lastname: "Shiina", personalId: "1509966278553")
     }
     
-    func login() async throws {
-        let authService = AuthService()
-        try await authService.login(email: "kasinphat2@gmail.com", password: "pam40624")
-    }
+//    func login() async throws {
+//        let authService = AuthService()
+//        try await authService.login(email: "kasinphat2@gmail.com", password: "pam40624")
+//    }
 }
