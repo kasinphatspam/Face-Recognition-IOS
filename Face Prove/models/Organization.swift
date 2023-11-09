@@ -8,6 +8,7 @@
 import Foundation
 
 struct Organization: Codable {
-    let name: String?
-    let passcode: String?
+    let id: Int
+    let name: String
+    let passcode: String
 }

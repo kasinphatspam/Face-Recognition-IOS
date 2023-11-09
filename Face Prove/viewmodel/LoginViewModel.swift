@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+class LoginViewModel: ObservableObject {
+    
+    private let authService: AuthService = AuthService()
+    
+    func login(email: String, password: String) async throws {
+        try await authService.login(email: email, password: password)
+    }
+}

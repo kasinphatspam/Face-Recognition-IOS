@@ -27,4 +27,30 @@ class Connection {
         
         return request
     }
+    
+    func puts(from: String, parameter: [String: Any]) async throws -> URLRequest{
+        let url = URL(string: from)!
+        let body = try? JSONSerialization.data(withJSONObject: parameter)
+        
+        var request = URLRequest(url: url)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpMethod = "PUT"
+        request.httpBody = body
+        
+        return request
+    }
+    
+    func delete(from: String, parameter: [String: Any]) async throws -> URLRequest {
+        let url = URL(string: from)!
+        let body = try? JSONSerialization.data(withJSONObject: parameter)
+        
+        var request = URLRequest(url: url)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpMethod = "DELETE"
+        request.httpBody = body
+        
+        return request
+    }
 }
