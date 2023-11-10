@@ -54,7 +54,7 @@ class RecognitionService: Connection{
         ]
         
         let request = try await posts(
-            from: "http://\(serverConfig!.ip)/organization/\(organizationId!)/contact/\(contactId)/encode",
+            from: "https://\(serverConfig!.ip)/organization/\(organizationId!)/contact/\(contactId)/encode",
             parameter: body
         )
         
@@ -92,7 +92,7 @@ class RecognitionService: Connection{
         ]
         
         let request = try await posts(
-            from: "http://\(serverConfig!.ip)/organization/\(organizationId!)/contact/encode/recognition",
+            from: "https://\(serverConfig!.ip)/organization/\(organizationId!)/contact/encode/recognition",
             parameter: body
         )
         

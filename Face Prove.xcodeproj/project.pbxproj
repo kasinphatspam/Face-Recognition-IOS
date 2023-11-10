@@ -27,6 +27,10 @@
 		4FF5DA662AFD5DDB00785920 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5DA652AFD5DDB00785920 /* LoginViewModel.swift */; };
 		4FF5DA692AFD617500785920 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5DA682AFD617500785920 /* Observable.swift */; };
 		4FF5DA6B2AFD66B300785920 /* Signals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5DA6A2AFD66B200785920 /* Signals.swift */; };
+		4FF5DA702AFED21400785920 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5DA6F2AFED21400785920 /* EditProfileView.swift */; };
+		4FF5DA722AFED69600785920 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5DA712AFED69500785920 /* RegisterView.swift */; };
+		4FF5DA742AFED73B00785920 /* JoinOrganizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5DA732AFED73B00785920 /* JoinOrganizationView.swift */; };
+		4FF5DA762AFEDBE000785920 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5DA752AFEDBE000785920 /* SplashView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +75,10 @@
 		4FF5DA652AFD5DDB00785920 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4FF5DA682AFD617500785920 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		4FF5DA6A2AFD66B200785920 /* Signals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signals.swift; sourceTree = "<group>"; };
+		4FF5DA6F2AFED21400785920 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		4FF5DA712AFED69500785920 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		4FF5DA732AFED73B00785920 /* JoinOrganizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinOrganizationView.swift; sourceTree = "<group>"; };
+		4FF5DA752AFEDBE000785920 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +173,10 @@
 			children = (
 				4F0066082AFB877600E322B0 /* ContentView.swift */,
 				4F0066322AFB891000E322B0 /* LoginView.swift */,
+				4FF5DA6F2AFED21400785920 /* EditProfileView.swift */,
+				4FF5DA712AFED69500785920 /* RegisterView.swift */,
+				4FF5DA732AFED73B00785920 /* JoinOrganizationView.swift */,
+				4FF5DA752AFEDBE000785920 /* SplashView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -348,14 +360,18 @@
 			files = (
 				4F0066362AFB898300E322B0 /* Users.swift in Sources */,
 				4F0066332AFB891000E322B0 /* LoginView.swift in Sources */,
+				4FF5DA702AFED21400785920 /* EditProfileView.swift in Sources */,
 				4FF5DA622AFCCF5400785920 /* RecognitionService.swift in Sources */,
 				4F0066092AFB877600E322B0 /* ContentView.swift in Sources */,
 				4F00663F2AFB93B800E322B0 /* Connection.swift in Sources */,
 				4F0066382AFB89F800E322B0 /* Organization.swift in Sources */,
+				4FF5DA742AFED73B00785920 /* JoinOrganizationView.swift in Sources */,
 				4FF5DA5C2AFBDA8000785920 /* ContentViewModel.swift in Sources */,
+				4FF5DA722AFED69600785920 /* RegisterView.swift in Sources */,
 				4FF5DA5E2AFBE47800785920 /* UserService.swift in Sources */,
 				4FF5DA662AFD5DDB00785920 /* LoginViewModel.swift in Sources */,
 				4F00663A2AFB8A3900E322B0 /* Contacts.swift in Sources */,
+				4FF5DA762AFEDBE000785920 /* SplashView.swift in Sources */,
 				4FF5DA692AFD617500785920 /* Observable.swift in Sources */,
 				4FF5DA6B2AFD66B300785920 /* Signals.swift in Sources */,
 				4F0066072AFB877600E322B0 /* Face_ProveApp.swift in Sources */,

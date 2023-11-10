@@ -9,52 +9,59 @@ import Foundation
 
 struct AuthResponse: Codable {
     let message: String
-    let user: Users
+    let id: Int
 }
 
 enum JSONDecoderError: Error {
     case decodeFailure
 }
 
+enum AuthLoginError: Error {
+    
+}
+
 class AuthService: Connection {
     
-    private var user: Users? = nil
+    private var userId: Int? = nil
     private var serverConfig: ServerConfig? = nil
     
     override init() {
         self.serverConfig = ServerConfig()
     }
     
-    func login(email: String, password: String, completion: @escaping ((Error?, Bool, Users?) -> Void)) async throws {
+    func login(email: String, password: String, completion: @escaping ((Error?, Bool, Int?) -> Void)) async throws {
         let body = [
             "email": email,
             "password": password
         ]
         
         let request = try await posts(
-            from: "http://\(serverConfig!.ip)/auth/login",
+            from: "https://\(serverConfig!.ip)/auth/login",
             parameter: body
         )
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
+                print("AuthService: \(error?.localizedDescription ?? "No data")")
                 completion(error, false, nil)
                 return
             }
             
             guard let decoded = try? JSONDecoder().decode(AuthResponse.self, from: data) else {
                 completion(JSONDecoderError.decodeFailure , false, nil)
+                print("AuthService: Error decode failure")
                 return
             }
             
-            self.user = decoded.user
-            completion(nil, true, decoded.user)
+            completion(nil, true, decoded.id)
+            print("AuthService: login user id: \(decoded.id) successfully")
+            
         }
+        
         task.resume()
     }
     
-    func register(email: String, password: String, firstname: String, lastname: String, personalId: String) async throws {
+    func register(email: String, password: String, firstname: String, lastname: String, personalId: String, completion: @escaping ((Error?, Bool, Int?) -> Void)) async throws {
         let body = [
             "email": email,
             "password": password,
@@ -64,22 +71,24 @@ class AuthService: Connection {
         ]
         
         let request = try await posts(
-            from: "http://\(serverConfig!.ip)/auth/register",
+            from: "https://\(serverConfig!.ip)/auth/register",
             parameter: body
         )
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
+                completion(error, false , nil)
                 return
             }
             
             guard let decoded = try? JSONDecoder().decode(AuthResponse.self, from: data) else {
                 print("Error: Couldn't decode data into auth response")
+                completion(JSONDecoderError.decodeFailure, false , nil)
                 return
             }
             
-            self.user = decoded.user
+            completion(nil, true, decoded.id)
         }
         
         task.resume()
@@ -89,10 +98,11 @@ class AuthService: Connection {
         
     }
     
-    func getCurrentUser() -> Users? {
-        if (self.user == nil) {
+    func getCurrentUser() async throws -> Int? {
+        if (self.userId == nil) {
             return nil
         }
-        return user!
+        return self.userId!
     }
+    
 }

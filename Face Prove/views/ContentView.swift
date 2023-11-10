@@ -8,16 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     @StateObject var viewModel = ContentViewModel()
+    @State var isActive: Bool = false
 
     var body: some View {
-        NavigationView {
-            VStack {
-                NavigationLink(destination: LoginView()){
-                    Text("Press")
+        ZStack {
+            if self.isActive {
+                LoginView()
+            } else {
+                SplashView()
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                withAnimation {
+                    self.isActive = true
                 }
             }
         }
+        
     }
 }
 

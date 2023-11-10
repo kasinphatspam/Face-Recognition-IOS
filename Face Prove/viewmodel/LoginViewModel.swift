@@ -21,15 +21,14 @@ class LoginViewModel: ObservableObject {
             return
         }
     
-        try await authService.login(email: email, password: password) { error , success, user in
-            if let error = error {
+        try await authService.login(email: email, password: password) { error , success, userId in
+            if error != nil {
                 self.signal.value = Signals(command: "AUTH_LOGIN_FAILED")
                 return
             }
             
-            if success, let user = user {
+            if success {
                 self.signal.value = Signals(command: "AUTH_LOGIN_COMPLETED")
-                print(user.firstname)
             }
         }
     

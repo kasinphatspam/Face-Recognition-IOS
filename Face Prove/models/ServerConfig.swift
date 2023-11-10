@@ -8,6 +8,6 @@
 import Foundation
 
 struct ServerConfig {
-    let ip: String = "192.168.0.40:3001"
+    let ip: String = "api.pphamster.com"
     let apiKey: String = ""
 }
