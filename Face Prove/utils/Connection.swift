@@ -15,15 +15,18 @@ class Connection {
         return data
     }
     
-    func posts(from: String, parameter: [String: Any]) async throws -> URLRequest{
+    func posts(from: String, parameter: [String: Any]?) async throws -> URLRequest{
         let url = URL(string: from)!
-        let body = try? JSONSerialization.data(withJSONObject: parameter)
         
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"
-        request.httpBody = body
+        
+        if parameter != nil {
+            let body = try? JSONSerialization.data(withJSONObject: parameter!)
+            request.httpBody = body
+        }
         
         return request
     }

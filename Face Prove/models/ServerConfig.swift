@@ -8,6 +8,7 @@
 import Foundation
 
 struct ServerConfig {
+    let protocal: String = "https"
     let ip: String = "api.pphamster.com"
     let apiKey: String = ""
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RegisterView: View {
+struct RegisterActivity: View {
     
     @State private var username: String = ""
     @State private var password: String = ""
@@ -46,10 +46,10 @@ struct RegisterView: View {
                         .foregroundColor(.red)
                 }
             }
-        }.navigationBarBackButtonHidden(true)
+        }.navigationBarBackButtonHidden(false)
     }
 }
 
 #Preview {
-    RegisterView()
+    RegisterActivity()
 }

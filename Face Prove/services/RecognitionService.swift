@@ -23,15 +23,12 @@ class RecognitionService: Connection{
     // server connection configs
     private var user: Users? = nil
     private var organization: Organization? = nil
-    private var serverConfig: ServerConfig? = nil
+    private var config: ServerConfig = ServerConfig()
     
     // response object
     private var encoderResponse: EncoderResponse? = nil
     private var recognitionResponse: RecognitionResponse? = nil
     
-    override init() {
-        self.serverConfig = ServerConfig()
-    }
     
     func config(user: Users, organization: Organization) {
         reset()
@@ -54,7 +51,7 @@ class RecognitionService: Connection{
         ]
         
         let request = try await posts(
-            from: "https://\(serverConfig!.ip)/organization/\(organizationId!)/contact/\(contactId)/encode",
+            from: "\(config.protocal)://\(config.ip)/organization/\(organizationId!)/contact/\(contactId)/encode",
             parameter: body
         )
         
@@ -92,7 +89,7 @@ class RecognitionService: Connection{
         ]
         
         let request = try await posts(
-            from: "https://\(serverConfig!.ip)/organization/\(organizationId!)/contact/encode/recognition",
+            from: "\(config.protocal)://\(config.ip)/organization/\(organizationId!)/contact/encode/recognition",
             parameter: body
         )
         

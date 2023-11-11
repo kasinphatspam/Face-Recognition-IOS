@@ -23,11 +23,7 @@ enum AuthLoginError: Error {
 class AuthService: Connection {
     
     private var userId: Int? = nil
-    private var serverConfig: ServerConfig? = nil
-    
-    override init() {
-        self.serverConfig = ServerConfig()
-    }
+    private var config: ServerConfig = ServerConfig()
     
     func login(email: String, password: String, completion: @escaping ((Error?, Bool, Int?) -> Void)) async throws {
         let body = [
@@ -36,7 +32,7 @@ class AuthService: Connection {
         ]
         
         let request = try await posts(
-            from: "https://\(serverConfig!.ip)/auth/login",
+            from: "\(config.protocal)://\(config.ip)/auth/login",
             parameter: body
         )
         
@@ -53,6 +49,8 @@ class AuthService: Connection {
                 return
             }
             
+            self.userId = decoded.id
+            GlobalVariables.userId = decoded.id
             completion(nil, true, decoded.id)
             print("AuthService: login user id: \(decoded.id) successfully")
             
@@ -71,7 +69,7 @@ class AuthService: Connection {
         ]
         
         let request = try await posts(
-            from: "https://\(serverConfig!.ip)/auth/register",
+            from: "\(config.protocal)://\(config.ip)/auth/register",
             parameter: body
         )
         
@@ -88,6 +86,8 @@ class AuthService: Connection {
                 return
             }
             
+            self.userId = decoded.id
+            GlobalVariables.userId = decoded.id
             completion(nil, true, decoded.id)
         }
         

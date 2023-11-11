@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EditProfileView: View {
+struct EditProfileActivity: View {
     
     @State private var username: String = ""
     @State private var password: String = ""
@@ -51,5 +51,5 @@ struct EditProfileView: View {
 }
 
 #Preview {
-    EditProfileView()
+    EditProfileActivity()
 }

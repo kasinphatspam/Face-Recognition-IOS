@@ -13,18 +13,18 @@ struct UpdateUsersResponse: Codable {
 
 class UserService: Connection {
     
-    private var serverConfig: ServerConfig = ServerConfig()
+    private var config: ServerConfig = ServerConfig()
     private var updateUserResponse: UpdateUsersResponse? = nil
     
     func getUserById(id: Int) async throws -> Users {
-        let response = try await gets(from: "https://\(serverConfig.ip)/user/\(id)")
+        let response = try await gets(from: "\(config.protocal)://\(config.ip)/user/\(id)")
         let decoded = try JSONDecoder().decode(Users.self, from: response)
         print("UserService: get user id: \(decoded.id)")
         return decoded
     }
     
     func getOrganizationByUserId(id: Int) async throws -> Organization {
-        let response = try await gets(from: "https://\(serverConfig.ip)/user/\(id)/organization")
+        let response = try await gets(from: "\(config.protocal)://\(config.ip)/user/\(id)/organization")
         let decoded = try JSONDecoder().decode(Organization.self, from: response)
         return decoded
     }
@@ -34,7 +34,7 @@ class UserService: Connection {
             "image": image,
         ]
         
-        let request = try await puts(from: "https://\(serverConfig.ip)/user/\(id)/image",parameter: body)
+        let request = try await puts(from: "\(config.protocal)://\(config.ip)/user/\(id)/image",parameter: body)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
@@ -84,7 +84,7 @@ class UserService: Connection {
             body.updateValue(dob!, forKey: "dob")
         }
         
-        let request = try await puts(from: "https://\(serverConfig.ip)/user/\(id)/",parameter: body)
+        let request = try await puts(from: "\(config.protocal)://\(config.ip)/user/\(id)/",parameter: body)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {

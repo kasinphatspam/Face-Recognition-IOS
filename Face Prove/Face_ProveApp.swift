@@ -7,11 +7,15 @@
 
 import SwiftUI
 
+struct GlobalVariables {
+    static var userId: Int = 0
+}
+
 @main
 struct Face_ProveApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainActivity()
         }
     }
 }
