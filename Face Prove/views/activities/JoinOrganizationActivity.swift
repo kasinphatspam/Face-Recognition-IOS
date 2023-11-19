@@ -9,51 +9,73 @@ import SwiftUI
 
 struct JoinOrganizationActivity: View {
     
+    @Binding var isJoinOrg: Bool
     @StateObject var viewModel = JoinOrganizationViewModel()
+    
+    // alert dialog
+    @State private var isPresentingAlert: Bool = false
+    @State private var alertText: String = ""
+    
+    // loading sheet
+    @State private var showResults = false
+    
+    // organization information
     @State private var passcode: String = ""
-    @State private var isDone: Bool = false
+    
+    // keyboard interupt
+    @FocusState var isFocus: Bool
     
     var body: some View {
         
-        if isDone {
-            MainActivity()
-        } else {
-            Form {
-                Section(header: Text("Ask the leader to receive the joining code.")) {
-                    TextField("6 digits", text: $passcode)
-                    
-                }
-                
-                Button("Continue") {
+        Form {
+            Section(header: Text("Ask the leader to receive the joining code.")) {
+                TextField("6 digits", text: $passcode).autocapitalization(.none).focused($isFocus)
+            }
+            
+            Button("Continue") {
+                isFocus = false
+                if !passcode.isEmpty {
+                    self.showResults = true
                     Task {
                         try await viewModel.join(passcode: passcode)
                     }
+                } else {
+                    alertText = "Please fill out passcode field."
+                    isPresentingAlert = true
                 }
-                Button(action: {
-                    
-                }) {
-                    Text("Log out")
-                        .foregroundColor(.red)
-                }
-            }.onAppear() {
-                bindViewModel()
             }
-            .navigationTitle("Join Enterprise")
-            .navigationBarTitleDisplayMode(.large)
+            Button(action: {
+                
+            }) {
+                Text("Log out")
+                    .foregroundColor(.red)
+            }
+        }
+        .navigationTitle("Join Enterprise")
+        .navigationBarTitleDisplayMode(.large)
+        .alert(alertText,
+                isPresented: $isPresentingAlert) {
+        }.sheet(isPresented: $showResults, content: {
+            ProgressView().presentationDetents([.medium, .large])
+        })
+        .onAppear() {
+            bindViewModel()
         }
     }
     
     func bindViewModel() {
         viewModel.signal.bind { signal in
+            showResults = false
              guard let signal = signal else {
                  return
              }
 
              if signal.command == "ORGANIZATION_JOIN_COMPLETED" {
-                 self.isDone = true
+                 isJoinOrg = true
                  
              } else if signal.command == "ORGANIZATION_JOIN_FAILURE" {
-                 self.isDone = false
+                 self.alertText = "Passcode you entered incorrect."
+                 self.isPresentingAlert = true
              }
 
          }
@@ -61,5 +83,5 @@ struct JoinOrganizationActivity: View {
 }
 
 #Preview {
-    JoinOrganizationActivity()
+    JoinOrganizationActivity(isJoinOrg: .constant(false))
 }

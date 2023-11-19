@@ -18,4 +18,5 @@ struct Users: Codable {
     let email: String
     let gender: String?
     let image: String?
+    let organization: Organization?
 }

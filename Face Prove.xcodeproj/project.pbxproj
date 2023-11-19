@@ -31,6 +31,7 @@
 		4F688E412B0013B1003FC48B /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F688E402B0013B1003FC48B /* CircleImage.swift */; };
 		4F688E442B001623003FC48B /* OrganizationFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F688E432B001623003FC48B /* OrganizationFragment.swift */; };
 		4F688E462B001FE4003FC48B /* CustomersFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F688E452B001FE4003FC48B /* CustomersFragment.swift */; };
+		4F946C512B0A9A53009EF11F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F946C502B0A9A53009EF11F /* RegisterViewModel.swift */; };
 		4FB79DB02B086F1D00E9EE16 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB79DAF2B086F1D00E9EE16 /* CameraViewController.swift */; };
 		4FB79DB42B0875D300E9EE16 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FB79DB32B0875D300E9EE16 /* Camera.storyboard */; };
 		4FB79DB62B08897700E9EE16 /* RealtimeDetectorActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB79DB52B08897700E9EE16 /* RealtimeDetectorActivity.swift */; };
@@ -95,6 +96,7 @@
 		4F688E402B0013B1003FC48B /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		4F688E432B001623003FC48B /* OrganizationFragment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationFragment.swift; sourceTree = "<group>"; };
 		4F688E452B001FE4003FC48B /* CustomersFragment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomersFragment.swift; sourceTree = "<group>"; };
+		4F946C502B0A9A53009EF11F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		4FB79DAF2B086F1D00E9EE16 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		4FB79DB32B0875D300E9EE16 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		4FB79DB52B08897700E9EE16 /* RealtimeDetectorActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDetectorActivity.swift; sourceTree = "<group>"; };
@@ -219,7 +221,6 @@
 				4F0066352AFB898300E322B0 /* Users.swift */,
 				4F0066372AFB89F800E322B0 /* Organization.swift */,
 				4F0066392AFB8A3900E322B0 /* Contacts.swift */,
-				4FF5DA632AFCD84A00785920 /* EnviromentVariable.swift */,
 				4FF5DA6A2AFD66B200785920 /* Signals.swift */,
 			);
 			path = models;
@@ -292,6 +293,7 @@
 				4FF5DA5B2AFBDA8000785920 /* ContentViewModel.swift */,
 				4FF5DA652AFD5DDB00785920 /* LoginViewModel.swift */,
 				4FF5DA7B2AFF877400785920 /* JoinOrganizationViewModel.swift */,
+				4F946C502B0A9A53009EF11F /* RegisterViewModel.swift */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -299,6 +301,7 @@
 		4FF5DA602AFC064500785920 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				4FF5DA632AFCD84A00785920 /* EnviromentVariable.swift */,
 				4F00663E2AFB93B800E322B0 /* Connection.swift */,
 				4F52B5C92B0907A600667B0F /* KeychainHelper.swift */,
 			);
@@ -463,6 +466,7 @@
 				4FF5DA722AFED69600785920 /* RegisterActivity.swift in Sources */,
 				4FF5DA7A2AFF86AE00785920 /* OrganizationService.swift in Sources */,
 				4FF5DA5E2AFBE47800785920 /* UserService.swift in Sources */,
+				4F946C512B0A9A53009EF11F /* RegisterViewModel.swift in Sources */,
 				4F036EF62B0A7011008197AD /* DetectionResultSheet.swift in Sources */,
 				4F52B5CA2B0907A600667B0F /* KeychainHelper.swift in Sources */,
 				4FF5DA662AFD5DDB00785920 /* LoginViewModel.swift in Sources */,

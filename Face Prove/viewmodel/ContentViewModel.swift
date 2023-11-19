@@ -15,10 +15,16 @@ class ContentViewModel: ObservableObject {
         try await authService.fetchCurrentUser()
     }
     
-    func getCurrentUser() -> Bool{
-        if authService.getCurrentUser() == nil {
-            return false
+    func getCurrentUser() -> Int{
+        // user not found
+        guard let user = authService.getCurrentUser() else {
+            return -1
         }
-        return true
+        
+        // user has not been joined organization
+        guard let organization = user.organization else {
+            return 0
+        }
+        return 1
     }
 }
