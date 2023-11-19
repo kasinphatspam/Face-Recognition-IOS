@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct GlobalVariables {
-    static var userId: Int = 0
+    static var session: String = ""
 }
 
 @main
 struct Face_ProveApp: App {
     var body: some Scene {
         WindowGroup {
-            MainActivity()
+            ContentView()
         }
     }
 }

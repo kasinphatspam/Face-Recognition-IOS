@@ -14,16 +14,16 @@ class JoinOrganizationViewModel: ObservableObject {
 
     func join(passcode: String) async throws {
         
-        try await organizationService.join(passcode: passcode, completion: { error, status in
-            
-            if error != nil {
-                self.signal.value = Signals(command: "ORGANIZATION_JOIN_FAILURE")
-            }
-            
-            if status {
-                self.signal.value = Signals(command: "ORGANIZATION_JOIN_COMPLETED")
-            }
-        })
+//        try await organizationService.join(passcode: passcode, completion: { error, status in
+//            
+//            if error != nil {
+//                self.signal.value = Signals(command: "ORGANIZATION_JOIN_FAILURE")
+//            }
+//            
+//            if status {
+//                self.signal.value = Signals(command: "ORGANIZATION_JOIN_COMPLETED")
+//            }
+//        })
     }
     
     

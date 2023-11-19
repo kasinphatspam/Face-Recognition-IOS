@@ -12,14 +12,11 @@ struct SplashActivity: View {
         VStack{
             Spacer()
             
-            Text("Face Prove")
-                .font(.title)
-                .multilineTextAlignment(.center)
-                .bold()
+            Image("icon").resizable().frame(width: 160, height: 160)
             
             
             Spacer()
-            Text("Copyright © 2023 Face Prove.inc").font(.system(size: 12)).padding(24)
+            Text("Copyright © 2023 Face Prove").font(.system(size: 12)).padding(24)
         }.edgesIgnoringSafeArea(.bottom)
     }
 }

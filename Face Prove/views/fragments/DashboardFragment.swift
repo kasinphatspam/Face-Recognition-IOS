@@ -28,61 +28,8 @@ struct OrganizationDetailsView: View {
                 Text("View employee").font(.caption).padding(.trailing)
             }
             
-            ZStack {
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .fill(.darkgray)
-                
-                VStack {
-                    HStack {
-                        Text("KMUTT")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .bold()
-                        
-                        Spacer()
-                    }
-                    
-                    HStack {
-                        Text("Your organization passcode is **ADSDFS**")
-                            .font(.subheadline)
-                            .foregroundColor(.white)
-                        Spacer()
-                    }
-                
-                }
-                .padding(20)
-                .multilineTextAlignment(.center)
-            }
-            .padding(.leading, 16)
-            .padding(.trailing, 16)
+            OrganizationPasscodeView()
             
-        }
-    }
-}
-
-struct LatestDetectView: View {
-    var body: some View {
-        VStack {
-            HStack {
-                Text("Today").font(.headline).padding(.leading)
-                Spacer()
-                Text("View history").font(.caption).padding(.trailing)
-            }.padding(.top, 8)
-            
-            VStack {
-                ForEach(0 ..< 10) { value in
-                    
-                    HStack {
-                        CircleImage(image: UIImage(named: "mahiru")!).padding(.leading)
-                        VStack(alignment: .leading) {
-                            Text("Kasinphat Ketchom").font(.subheadline).padding(.leading)
-                            Text("Detected at Monday 20:30 AM").font(.caption).padding(.leading)
-                        }
-                        Spacer()
-                    }.padding(.bottom, 12)
-                }
-                
-            }
         }
     }
 }
@@ -124,6 +71,9 @@ struct TaskSummaryView: View {
 
 
 struct RecognizeChoiceView: View {
+    
+    @Binding var visibility: Visibility
+    
     var body: some View {
         HStack {
             Text("Search customer information").font(.headline).padding(.leading)
@@ -133,19 +83,59 @@ struct RecognizeChoiceView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
                 
-                Button("Seach by text") {
+                NavigationLink {
                     
-                }.buttonStyle(GrowingButton(color: .blue))
+                } label: {
+                    Text("Search by text")
+                }.buttonStyle(GrowingButton(color: .darkpurple))
                     .padding(.leading)
                 
-                Button("Realtime recognize") {
-                    
-                }.buttonStyle(GrowingButton(color: .blue))
+                NavigationLink {
+                    RealtimeDetectorActivity()
+                        .navigationTitle("Face Detector")
+                        .toolbarTitleDisplayMode(.inline)
+                        .onAppear() {
+                            visibility = .hidden
+                        }
+                        .onDisappear() {
+                            visibility = .visible
+                        }
+                } label: {
+                    Text("Realtime recognize")
+                }.buttonStyle(GrowingButton(color: .pinkred))
                 
-                Button("Snapshot recognize") {
+                NavigationLink {
                     
+                } label: {
+                    Text("Snapshot recognize")
                 }.buttonStyle(GrowingButton(color: .blue))
                     .padding(.trailing)
+            }
+        }
+    }
+}
+
+struct LatestDetectView: View {
+    var body: some View {
+        VStack {
+            HStack {
+                Text("Today").font(.headline).padding(.leading)
+                Spacer()
+                Text("View history").font(.caption).padding(.trailing)
+            }.padding(.top, 8)
+            
+            VStack {
+                ForEach(0 ..< 10) { value in
+                    
+                    HStack {
+                        CircleImage(image: UIImage(named: "mahiru")!).padding(.leading)
+                        VStack(alignment: .leading) {
+                            Text("Kasinphat Ketchom").font(.subheadline).padding(.leading)
+                            Text("Detected at Monday 20:30 AM").font(.caption).padding(.leading)
+                        }
+                        Spacer()
+                    }.padding(.bottom, 12)
+                }
                 
             }
         }
@@ -153,7 +143,11 @@ struct RecognizeChoiceView: View {
 }
 
 struct DashboardFragment: View {
+    
+    @Binding var visibility: Visibility
+    
     var body: some View {
+        
         ScrollView(showsIndicators: false) {
             VStack {
                 HeaderView()
@@ -161,7 +155,7 @@ struct DashboardFragment: View {
                 OrganizationDetailsView().padding(.top,8)
                 TaskSummaryView().padding(.top,8)
                 Divider().padding(.top).padding(.leading).padding(.trailing)
-                RecognizeChoiceView()
+                RecognizeChoiceView(visibility: $visibility)
                 Divider().padding(.top).padding(.leading).padding(.trailing)
                 LatestDetectView()
                 Divider().padding(.top).padding(.leading).padding(.trailing)
@@ -172,5 +166,5 @@ struct DashboardFragment: View {
 }
 
 #Preview {
-    DashboardFragment()
+    DashboardFragment(visibility: .constant(.visible))
 }

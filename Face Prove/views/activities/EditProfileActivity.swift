@@ -26,14 +26,6 @@ struct EditProfileActivity: View {
                     TextField("Gender", text: $password)
                 }
                 
-                Section(header: Text("Security")) {
-                    TextField("Email address", text: $username)
-                    SecureField("Password", text: $password)
-                }
-                
-                
-                
-                
                 Button("Save all changes") {
                     
                 }

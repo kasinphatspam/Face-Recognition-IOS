@@ -22,6 +22,21 @@ struct CircleImage: View {
     }
 }
 
+struct ProfileCircleImage: View {
+    
+    private let image: UIImage
+    
+    init(image: UIImage) {
+        self.image = image
+    }
+    var body: some View {
+        Image(uiImage: self.image)
+            .resizable()
+            .clipShape(Circle())
+            .frame(width: 60, height: 60)
+    }
+}
+
 #Preview {
     CircleImage(image: UIImage(named: "mahiru")!)
 }

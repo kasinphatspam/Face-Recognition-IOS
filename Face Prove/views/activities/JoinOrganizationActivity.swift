@@ -16,7 +16,7 @@ struct JoinOrganizationActivity: View {
     var body: some View {
         
         if isDone {
-            SplashActivity()
+            MainActivity()
         } else {
             Form {
                 Section(header: Text("Ask the leader to receive the joining code.")) {
@@ -38,6 +38,8 @@ struct JoinOrganizationActivity: View {
             }.onAppear() {
                 bindViewModel()
             }
+            .navigationTitle("Join Enterprise")
+            .navigationBarTitleDisplayMode(.large)
         }
     }
     
