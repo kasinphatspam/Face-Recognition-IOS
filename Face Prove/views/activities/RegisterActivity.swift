@@ -69,7 +69,7 @@ struct RegisterActivity: View {
                     && !password.isEmpty
                     && !firstname.isEmpty
                     && !lastname.isEmpty
-                    && personalId.isEmpty
+                    && !personalId.isEmpty
                 {
                     self.showResults = true
                     Task {
@@ -111,6 +111,9 @@ struct RegisterActivity: View {
              }
 
              if signal.command == "AUTH_REGISTER_COMPLETED" {
+                 Task {
+                     try await viewModel.fetch()
+                 }
                  isLogin = true
                  
              } else if signal.command == "AUTH_REGISTER_FAILED" {

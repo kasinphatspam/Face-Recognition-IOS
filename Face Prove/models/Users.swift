@@ -8,10 +8,10 @@
 import Foundation
 
 struct UsersResponse: Decodable {
-    let results: [Users]
+    let results: [User]
 }
 
-struct Users: Codable {
+struct User: Codable, Identifiable {
     let id: Int
     let firstname: String
     let lastname: String
@@ -19,4 +19,5 @@ struct Users: Codable {
     let gender: String?
     let image: String?
     let organization: Organization?
+    let role: Role?
 }

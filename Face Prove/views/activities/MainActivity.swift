@@ -13,12 +13,14 @@ struct BottomNavigationBar: View {
     @State private var selection = 1
     @State private var searchText = ""
     @State private var visibility: Visibility = .visible
-    
+    @State private var searchOnClicked: Bool = false
+    @Binding var shouldPopToRootView : Bool
+
     var body: some View {
         
         TabView(selection:$selection) {
             NavigationView {
-                DashboardFragment(visibility: $visibility)
+                DashboardFragment(visibility: $visibility, searchOnClicked: $searchOnClicked)
                     .navigationTitle("Dashboard")
                     .toolbar(visibility, for: .tabBar)
             }
@@ -51,7 +53,7 @@ struct BottomNavigationBar: View {
             .tag(3)
             
             NavigationView {
-                ProfileFragment()
+                ProfileFragment(shouldPopToRootView: $shouldPopToRootView)
             }
             .tabItem {
                 Image(systemName: "person.crop.circle.fill")
@@ -59,17 +61,26 @@ struct BottomNavigationBar: View {
             }
             .tag(4)
         }
-        
+        .onChange(of: searchOnClicked) {
+            
+            if searchOnClicked == true {
+                selection = 3
+                searchOnClicked = false
+            }
+        }
     }
 }
 
 struct MainActivity: View {
     
+    @Binding var shouldPopToRootView : Bool
+    
     var body: some View {
-        BottomNavigationBar()
+        BottomNavigationBar(shouldPopToRootView: $shouldPopToRootView)
     }
 }
 
+
 #Preview {
-    MainActivity()
+    MainActivity(shouldPopToRootView: .constant(false))
 }

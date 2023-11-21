@@ -73,6 +73,7 @@ struct TaskSummaryView: View {
 struct RecognizeChoiceView: View {
     
     @Binding var visibility: Visibility
+    @Binding var searchOnClicked: Bool
     
     var body: some View {
         HStack {
@@ -83,10 +84,8 @@ struct RecognizeChoiceView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
                 
-                NavigationLink {
-                    
-                } label: {
-                    Text("Search by text")
+                Button("Search by text") {
+                    searchOnClicked = true
                 }.buttonStyle(GrowingButton(color: .darkpurple))
                     .padding(.leading)
                 
@@ -103,13 +102,6 @@ struct RecognizeChoiceView: View {
                 } label: {
                     Text("Realtime recognize")
                 }.buttonStyle(GrowingButton(color: .pinkred))
-                
-                NavigationLink {
-                    
-                } label: {
-                    Text("Snapshot recognize")
-                }.buttonStyle(GrowingButton(color: .blue))
-                    .padding(.trailing)
             }
         }
     }
@@ -128,7 +120,7 @@ struct LatestDetectView: View {
                 ForEach(0 ..< 10) { value in
                     
                     HStack {
-                        CircleImage(image: UIImage(named: "mahiru")!).padding(.leading)
+                        CircleImage(image: "").padding(.leading)
                         VStack(alignment: .leading) {
                             Text("Kasinphat Ketchom").font(.subheadline).padding(.leading)
                             Text("Detected at Monday 20:30 AM").font(.caption).padding(.leading)
@@ -145,6 +137,7 @@ struct LatestDetectView: View {
 struct DashboardFragment: View {
     
     @Binding var visibility: Visibility
+    @Binding var searchOnClicked: Bool
     
     var body: some View {
         
@@ -155,16 +148,18 @@ struct DashboardFragment: View {
                 OrganizationDetailsView().padding(.top,8)
                 TaskSummaryView().padding(.top,8)
                 Divider().padding(.top).padding(.leading).padding(.trailing)
-                RecognizeChoiceView(visibility: $visibility)
+                RecognizeChoiceView(visibility: $visibility, searchOnClicked: $searchOnClicked)
                 Divider().padding(.top).padding(.leading).padding(.trailing)
                 LatestDetectView()
                 Divider().padding(.top).padding(.leading).padding(.trailing)
                 Spacer()
             }
+            .padding(.leading,4)
+            .padding(.trailing,4)
         }
     }
 }
 
 #Preview {
-    DashboardFragment(visibility: .constant(.visible))
+    DashboardFragment(visibility: .constant(.visible), searchOnClicked: .constant(false))
 }

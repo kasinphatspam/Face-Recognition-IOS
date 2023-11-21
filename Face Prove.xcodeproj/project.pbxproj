@@ -32,6 +32,9 @@
 		4F688E442B001623003FC48B /* OrganizationFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F688E432B001623003FC48B /* OrganizationFragment.swift */; };
 		4F688E462B001FE4003FC48B /* CustomersFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F688E452B001FE4003FC48B /* CustomersFragment.swift */; };
 		4F946C512B0A9A53009EF11F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F946C502B0A9A53009EF11F /* RegisterViewModel.swift */; };
+		4F946C552B0B9F36009EF11F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F946C542B0B9F36009EF11F /* MainViewModel.swift */; };
+		4FAFD3B52B0C49DD001749F3 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAFD3B42B0C49DD001749F3 /* Role.swift */; };
+		4FAFD3B72B0CB5E5001749F3 /* RealtimeDetectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAFD3B62B0CB5E5001749F3 /* RealtimeDetectorViewModel.swift */; };
 		4FB79DB02B086F1D00E9EE16 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB79DAF2B086F1D00E9EE16 /* CameraViewController.swift */; };
 		4FB79DB42B0875D300E9EE16 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FB79DB32B0875D300E9EE16 /* Camera.storyboard */; };
 		4FB79DB62B08897700E9EE16 /* RealtimeDetectorActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB79DB52B08897700E9EE16 /* RealtimeDetectorActivity.swift */; };
@@ -97,6 +100,9 @@
 		4F688E432B001623003FC48B /* OrganizationFragment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationFragment.swift; sourceTree = "<group>"; };
 		4F688E452B001FE4003FC48B /* CustomersFragment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomersFragment.swift; sourceTree = "<group>"; };
 		4F946C502B0A9A53009EF11F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		4F946C542B0B9F36009EF11F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		4FAFD3B42B0C49DD001749F3 /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
+		4FAFD3B62B0CB5E5001749F3 /* RealtimeDetectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDetectorViewModel.swift; sourceTree = "<group>"; };
 		4FB79DAF2B086F1D00E9EE16 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		4FB79DB32B0875D300E9EE16 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		4FB79DB52B08897700E9EE16 /* RealtimeDetectorActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDetectorActivity.swift; sourceTree = "<group>"; };
@@ -222,6 +228,7 @@
 				4F0066372AFB89F800E322B0 /* Organization.swift */,
 				4F0066392AFB8A3900E322B0 /* Contacts.swift */,
 				4FF5DA6A2AFD66B200785920 /* Signals.swift */,
+				4FAFD3B42B0C49DD001749F3 /* Role.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -294,6 +301,8 @@
 				4FF5DA652AFD5DDB00785920 /* LoginViewModel.swift */,
 				4FF5DA7B2AFF877400785920 /* JoinOrganizationViewModel.swift */,
 				4F946C502B0A9A53009EF11F /* RegisterViewModel.swift */,
+				4F946C542B0B9F36009EF11F /* MainViewModel.swift */,
+				4FAFD3B62B0CB5E5001749F3 /* RealtimeDetectorViewModel.swift */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -457,11 +466,13 @@
 				4FF5DA702AFED21400785920 /* EditProfileActivity.swift in Sources */,
 				4FF5DA622AFCCF5400785920 /* RecognitionService.swift in Sources */,
 				4F0066092AFB877600E322B0 /* ContentView.swift in Sources */,
+				4F946C552B0B9F36009EF11F /* MainViewModel.swift in Sources */,
 				4F00663F2AFB93B800E322B0 /* Connection.swift in Sources */,
 				4F688E3A2AFFD516003FC48B /* MainActivity.swift in Sources */,
 				4F5BC30C2B02000500EDB50C /* ProfileFragment.swift in Sources */,
 				4F0066382AFB89F800E322B0 /* Organization.swift in Sources */,
 				4FF5DA742AFED73B00785920 /* JoinOrganizationActivity.swift in Sources */,
+				4FAFD3B72B0CB5E5001749F3 /* RealtimeDetectorViewModel.swift in Sources */,
 				4FF5DA5C2AFBDA8000785920 /* ContentViewModel.swift in Sources */,
 				4FF5DA722AFED69600785920 /* RegisterActivity.swift in Sources */,
 				4FF5DA7A2AFF86AE00785920 /* OrganizationService.swift in Sources */,
@@ -476,6 +487,7 @@
 				4F00663A2AFB8A3900E322B0 /* Contacts.swift in Sources */,
 				4F688E412B0013B1003FC48B /* CircleImage.swift in Sources */,
 				4FF5DA762AFEDBE000785920 /* SplashActivity.swift in Sources */,
+				4FAFD3B52B0C49DD001749F3 /* Role.swift in Sources */,
 				4F5BC3102B02145200EDB50C /* ChangePasswordActivity.swift in Sources */,
 				4FF5DA692AFD617500785920 /* Observable.swift in Sources */,
 				4FF5DA6B2AFD66B300785920 /* Signals.swift in Sources */,

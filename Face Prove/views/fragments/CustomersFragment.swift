@@ -9,23 +9,64 @@ import SwiftUI
 
 struct CustomerListView: View {
     
+    @StateObject var viewModel: CustomerListViewModel = CustomerListViewModel()
+    @State private var contacts: [Contact]? = []
+    
     var body: some View {
         VStack {
             VStack {
-                ForEach(0 ..< 14) { value in
-                    
-                    HStack {
-                        CircleImage(image: UIImage(named: "mahiru")!).padding(.leading)
-                        VStack(alignment: .leading) {
-                            Text("Kasinphat Ketchom").font(.subheadline).padding(.leading)
-                            Text("Tel. 0653246900").font(.caption).padding(.leading)
+                if contacts != nil {
+                    ForEach(contacts!) { contact in
+                        NavigationLink {
+                            
+                        } label: {
+                            HStack {
+                                CircleImage(image: contact.image ?? "")
+                                    .padding(.leading)
+                                VStack(alignment: .leading) {
+                                    Text("\(contact.firstname) \(contact.lastname)")
+                                        .font(.subheadline)
+                                        .padding(.leading)
+                                        .foregroundColor(.dynamicblack)
+                                    Text("Tel. \(contact.mobile)")
+                                        .font(.caption)
+                                        .padding(.leading)
+                                        .foregroundColor(.dynamicblack)
+                                }
+                                Spacer()
+                                
+                                if contact.encodedId == nil {
+                                    Image(systemName: "faceid")
+                                        .frame(width: 36, height: 36)
+                                        .padding(.trailing)
+                                        .foregroundColor(.red)
+                                } else {
+                                    Image(systemName: "faceid")
+                                        .frame(width: 36, height: 36)
+                                        .padding(.trailing)
+                                        .foregroundColor(.blue)
+                                }
+            
+                            }
+                            .padding(.bottom, 12)
                         }
-                        Spacer()
-                    }.padding(.bottom, 12)
+                    }
                 }
                 
             }
         }
+        .onAppear() {
+            Task {
+                bindViewModel()
+                try await viewModel.fetch()
+            }
+        }
+    }
+    
+    func bindViewModel() {
+        viewModel.contacts.bind { contacts in
+            self.contacts = contacts
+         }
     }
 }
 
@@ -35,10 +76,11 @@ struct CustomersFragment: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
-                CustomerListView().padding(.top)
-                Divider().padding(.top).padding(.leading).padding(.trailing)
+                CustomerListView()
                 Spacer()
             }
+            .padding(.leading,4)
+            .padding(.trailing,4)
         }
     }
 }

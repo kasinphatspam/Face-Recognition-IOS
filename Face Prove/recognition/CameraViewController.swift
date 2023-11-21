@@ -13,6 +13,8 @@ import AVFoundation
 struct CameraView : UIViewControllerRepresentable {
     
     @Binding var isDetected: Bool
+    @Binding var isContinue: Bool
+    
     let base64: Binding<String>
     
     func makeCoordinator() -> Coordinator {
@@ -35,7 +37,11 @@ struct CameraView : UIViewControllerRepresentable {
         
         let buffer = uiViewController.count
         
-        if !isDetected {
+        if !isDetected  {
+            uiViewController.count += 1
+        }
+        
+        if isContinue {
             uiViewController.count += 1
         }
         
@@ -134,11 +140,11 @@ class CameraViewController: UIViewController {
             DispatchQueue.main.async {
                 if let result = vnRequest.results as? [VNFaceObservation], result.count > 0 {
                     self.status = true
-                    let image = UIImage(ciImage: CIImage(cvPixelBuffer: image))
+                    let image = self.resizeImage(image: UIImage(ciImage: CIImage(cvPixelBuffer: image)), targetSize: CGSizeMake(1000.0, 1000.0)) as UIImage?
                     print("Detectd \(result.count) faces!")
                     print("=======================")
-                    if image.base64 != nil {
-                        self.base64 = image.base64!
+                    if image!.base64 != nil {
+                        self.base64 = image!.base64!
                         self.delegate?.clasificationOccured(self, base64: self.base64)
                     }
                 }
@@ -148,6 +154,32 @@ class CameraViewController: UIViewController {
         
         let imageResultHandler = VNImageRequestHandler(cvPixelBuffer: image, orientation: .leftMirrored, options: [:])
         try? imageResultHandler.perform([faceDetectionRequest])
+    }
+    
+    private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(origin: .zero, size: newSize)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
     }
 }
 

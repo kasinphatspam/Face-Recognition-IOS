@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct OrganizationPasscodeView: View {
+    
+    @StateObject var viewModel: OrganizationPasscodeViewModel = OrganizationPasscodeViewModel()
+    @State private var organization: Organization? = nil
+    
     var body: some View {
             
         ZStack {
@@ -25,7 +29,7 @@ struct OrganizationPasscodeView: View {
                 }
                 
                 HStack {
-                    Text("Your organization passcode is **ADSDFS**")
+                    Text("Your organization passcode is **\(organization?.passcode ?? "")**")
                         .font(.subheadline)
                         .foregroundColor(.white)
                     Spacer()
@@ -37,36 +41,19 @@ struct OrganizationPasscodeView: View {
         }
         .padding(.leading, 16)
         .padding(.trailing, 16)
-    }
-}
-
-struct AdminListView: View {
-    var body: some View {
-        VStack {
-            HStack {
-                Text("Admin").font(.headline).padding(.leading)
-                Spacer()
-            }.padding(.top, 8)
-            
-            VStack {
-                ForEach(0 ..< 2) { value in
-                    
-                    HStack {
-                        CircleImage(image: UIImage(named: "mahiru")!).padding(.leading)
-                        VStack(alignment: .leading) {
-                            Text("Kasinphat Ketchom").font(.subheadline).padding(.leading)
-                            Text("Tel. 0653246900").font(.caption).padding(.leading)
-                        }
-                        Spacer()
-                    }.padding(.bottom, 12)
-                }
-                
+        .onAppear() {
+            Task {
+                organization = viewModel.fetch()
             }
         }
     }
 }
 
 struct EmployeeListView: View {
+    
+    @StateObject var viewModel: EmployeeListViewModel = EmployeeListViewModel()
+    @State private var users: [User]? = []
+    
     var body: some View {
         VStack {
             HStack {
@@ -75,20 +62,52 @@ struct EmployeeListView: View {
             }.padding(.top, 8)
             
             VStack {
-                ForEach(0 ..< 10) { value in
-                    
-                    HStack {
-                        CircleImage(image: UIImage(named: "mahiru")!).padding(.leading)
-                        VStack(alignment: .leading) {
-                            Text("Kasinphat Ketchom").font(.subheadline).padding(.leading)
-                            Text("Tel. 0653246900").font(.caption).padding(.leading)
+                if users != nil {
+                    ForEach(users!) { user in
+                        
+                        NavigationLink {
+                            
+                        } label: {
+                            HStack {
+                                CircleImage(image: user.image ?? "")
+                                    .padding(.leading)
+                                VStack(alignment: .leading) {
+                                    Text("\(user.firstname) \(user.lastname)")
+                                        .font(.subheadline)
+                                        .padding(.leading)
+                                        .foregroundColor(.dynamicblack)
+                                    Text("\(user.email)")
+                                        .font(.caption)
+                                        .padding(.leading)
+                                        .foregroundColor(.dynamicblack)
+                                }
+                                Spacer()
+                                
+                                if user.role?.name == "administrator" {
+                                    Image(systemName: "star.square.fill")
+                                        .frame(width: 36, height: 36)
+                                        .padding(.trailing)
+                                        .imageScale(.large)
+                                        .foregroundColor(.blue)
+                                    
+                                }
+                            }.padding(.bottom, 12)
                         }
-                        Spacer()
-                    }.padding(.bottom, 12)
+                    }
                 }
-                
             }
         }
+        .onAppear() {
+            bindViewModel()
+            Task {
+                try await viewModel.fetch()
+            }
+        }
+    }
+    func bindViewModel() {
+        viewModel.users.bind { users in
+            self.users = users
+         }
     }
 }
 
@@ -98,14 +117,13 @@ struct OrganizationFragment: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
-                OrganizationPasscodeView().padding(.top)
-                Divider().padding(.top).padding(.leading).padding(.trailing)
-                AdminListView()
+                OrganizationPasscodeView()
                 Divider().padding(.top).padding(.leading).padding(.trailing)
                 EmployeeListView()
-                Divider().padding(.top).padding(.leading).padding(.trailing)
                 Spacer()
             }
+            .padding(.leading,4)
+            .padding(.trailing,4)
         }
     }
 }

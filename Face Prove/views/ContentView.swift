@@ -13,53 +13,67 @@ struct ContentView: View {
     @State var isActive: Bool = false
     @State var isLogin: Bool = false
     @State var isJoinOrg: Bool = false
+    @State var shouldPopToRootView: Bool = false
 
     var body: some View {
         ZStack {
             if self.isActive && !isLogin {
                 // login step
                 NavigationView {
-                    LoginActivity(isLogin: $isLogin)
+                    LoginActivity(isLogin: $isLogin, isJoinOrg: $isJoinOrg)
                 }
             } else if self.isActive && isLogin && !isJoinOrg {
                 // join organization step
                 NavigationView {
-                    JoinOrganizationActivity(isJoinOrg: $isJoinOrg)
+                    JoinOrganizationActivity(isJoinOrg: $isJoinOrg, isLogin: $isLogin)
                 }
             } else if self.isActive && isLogin && isJoinOrg {
                 // launch main
-                MainActivity()
+                MainActivity(shouldPopToRootView: $shouldPopToRootView)
             }
             else {
                 // loading and checking step
                 SplashActivity()
             }
         }
+        .onChange(of: shouldPopToRootView, { oldValue, newValue in
+            if newValue == true {
+                isLogin = false
+                isJoinOrg = false
+                isActive = true
+            }
+        })
         .onAppear {
+            bindViewModel()
             Task {
-                try await viewModel.fetch()
+                try await viewModel.getCurrentUser()
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 withAnimation {
                     self.isActive = true
-                    let status = viewModel.getCurrentUser()
-                    if status == -1 {
-                        self.isLogin = false
-                    }
-                    
-                    if status == 0 {
-                        self.isLogin = true
-                        self.isJoinOrg = false
-                    }
-                    
-                    if status == 1 {
-                        self.isLogin = true
-                        self.isJoinOrg = true
-                    }
                 }
             }
         }
         
+    }
+    
+    func bindViewModel() {
+        viewModel.signal.bind { signal in
+             guard let signal = signal else {
+                 return
+             }
+
+             if signal.command == "USER_NOT_FOUND" {
+                 isLogin = false
+                 
+             } else if signal.command == "USER_HAS_NOT_JOINED_ORGANIZATION" {
+                 isLogin = true
+                 isJoinOrg = false
+             } else if signal.command == "USER_HAS_JOINED_ORGANIZATION" {
+                 isLogin = true
+                 isJoinOrg = true
+             }
+         }
     }
 }
 

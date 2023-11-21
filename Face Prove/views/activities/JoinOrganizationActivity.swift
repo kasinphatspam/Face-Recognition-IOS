@@ -10,6 +10,7 @@ import SwiftUI
 struct JoinOrganizationActivity: View {
     
     @Binding var isJoinOrg: Bool
+    @Binding var isLogin: Bool
     @StateObject var viewModel = JoinOrganizationViewModel()
     
     // alert dialog
@@ -29,7 +30,9 @@ struct JoinOrganizationActivity: View {
         
         Form {
             Section(header: Text("Ask the leader to receive the joining code.")) {
-                TextField("6 digits", text: $passcode).autocapitalization(.none).focused($isFocus)
+                TextField("6 digits", text: $passcode)
+                    .autocapitalization(.allCharacters)
+                    .focused($isFocus)
             }
             
             Button("Continue") {
@@ -45,7 +48,8 @@ struct JoinOrganizationActivity: View {
                 }
             }
             Button(action: {
-                
+                isLogin = false
+                viewModel.logout()
             }) {
                 Text("Log out")
                     .foregroundColor(.red)
@@ -70,10 +74,13 @@ struct JoinOrganizationActivity: View {
                  return
              }
 
-             if signal.command == "ORGANIZATION_JOIN_COMPLETED" {
-                 isJoinOrg = true
+             if signal.command == "JOIN_ORGANIZATION_COMPLETED" {
+                 Task {
+                     try await viewModel.fetch()
+                     isJoinOrg = true
+                 }
                  
-             } else if signal.command == "ORGANIZATION_JOIN_FAILURE" {
+             } else if signal.command == "JOIN_ORGANIZATION_FAILURE" {
                  self.alertText = "Passcode you entered incorrect."
                  self.isPresentingAlert = true
              }
@@ -83,5 +90,5 @@ struct JoinOrganizationActivity: View {
 }
 
 #Preview {
-    JoinOrganizationActivity(isJoinOrg: .constant(false))
+    JoinOrganizationActivity(isJoinOrg: .constant(false), isLogin: .constant(true))
 }

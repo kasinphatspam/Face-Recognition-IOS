@@ -25,4 +25,12 @@ class RegisterViewModel: ObservableObject {
             }
         }
     }
+    
+    func fetch() async throws{
+        try await authService.getCurrentUser { error, success, user in
+            if error != nil {
+                return
+            }
+        }
+    }
 }

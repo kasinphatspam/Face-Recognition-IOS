@@ -12,108 +12,85 @@ struct EncoderResponse: Codable {
 }
 
 struct RecognitionResponse: Codable {
-    let checkedTime: String
-    let accuracy: Float
+    let accuracy: [Float]?
     let statusCode: Int
-    let result: Contact?
+    let result: [Contact]?
 }
 
 class RecognitionService: Connection{
     
-    // server connection configs
-//    private var user: Users? = nil
-//    private var organization: Organization? = nil
-//    private var config: ServerConfig = ServerConfig()
-//    
-//    // response object
-//    private var encoderResponse: EncoderResponse? = nil
-//    private var recognitionResponse: RecognitionResponse? = nil
-//    
-//    
-//    func config(user: Users, organization: Organization) {
-//        reset()
-//        self.user = user
-//        self.organization = organization
-//    }
-//    
-//    func trains(contactId: Int, image: String) async throws -> EncoderResponse {
-//        reset()
-//        
-//        let organizationId = organization?.id
-//        let userId = user?.id
-//        
-//        if(userId == nil || organizationId == nil) {
-//            // throw error
-//        }
-//        
-//        let body = [
-//            "image": image,
-//        ]
-//        
-//        let request = try await posts(
-//            from: "\(config.protocal)://\(config.ip)/organization/\(organizationId!)/contact/\(contactId)/encode",
-//            parameter: body
-//        )
-//        
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            guard let data = data, error == nil else {
-//                print(error?.localizedDescription ?? "No data")
-//                return
-//            }
-//            
-//            guard let decoded = try? JSONDecoder().decode(EncoderResponse.self, from: data) else {
-//                print("Error: Couldn't decode data into auth response")
-//                return
-//            }
-//            
-//            self.encoderResponse = decoded
-//            
-//        }
-//        task.resume()
-//        
-//        return self.encoderResponse!
-//    }
-//    
-//    func recognize(image: String) async throws -> RecognitionResponse{
-//        reset()
-//        
-//        let organizationId = organization?.id
-//        let userId = user?.id
-//        
-//        if(userId == nil || organizationId == nil) {
-//            // throw error
-//        }
-//        
-//        let body = [
-//            "image": image,
-//        ]
-//        
-//        let request = try await posts(
-//            from: "\(config.protocal)://\(config.ip)/organization/\(organizationId!)/contact/encode/recognition",
-//            parameter: body
-//        )
-//        
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            guard let data = data, error == nil else {
-//                print(error?.localizedDescription ?? "No data")
-//                return
-//            }
-//            
-//            guard let decoded = try? JSONDecoder().decode(RecognitionResponse.self, from: data) else {
-//                print("Error: Couldn't decode data into auth response")
-//                return
-//            }
-//            
-//            self.recognitionResponse = decoded
-//        }
-//        task.resume()
-//        
-//        return self.recognitionResponse!
-//    }
-//    
-//    private func reset() {
-//        // reset previous response
-//        self.encoderResponse = nil
-//        self.recognitionResponse = nil
-//    }
+    // response object
+    private var encoderResponse: EncoderResponse? = nil
+    private var recognitionResponse: RecognitionResponse? = nil
+    
+    func trains(contactId: Int, image: String, completion: @escaping ((Error?, Bool, EncoderResponse?) -> Void)) 
+    async throws {
+        
+        if GlobalVariables.user == nil {
+            return
+        }
+        
+        if GlobalVariables.user?.organization == nil {
+            return
+        }
+        
+        let body = [
+            "image": image,
+        ]
+        
+        try await puts(
+            from: "\(EnviromentVariable.protocal)://\(EnviromentVariable.ip)/organization/\(GlobalVariables.user!.organization!)/contact/\(contactId)/encode",
+            parameter: body,
+            header: ["session": GlobalVariables.session]) {
+                error, success, data in
+                guard let data = data, error == nil else {
+                    completion(error, false, nil)
+                    return
+                }
+                
+                guard let decoded = try? JSONDecoder().decode(EncoderResponse.self, from: data) else {
+                    print("RecognitionService: Error decode failure \(String(decoding: data, as: UTF8.self))")
+                    completion(JSONDecoderError.decodeFailure, false, nil)
+                    return
+                }
+                print("RecognitionService: Encode new faces of contact id: \(contactId)")
+                completion(nil, true, decoded)
+            }
+    }
+    func recognize(image: String, completion: @escaping ((Error?, Bool, RecognitionResponse?) -> Void))
+    async throws {
+        
+        if GlobalVariables.user == nil {
+            return
+        }
+        
+        if GlobalVariables.user?.organization == nil {
+            return
+        }
+        
+        let body = [
+            "image": image,
+        ]
+        try await posts(
+            from: "\(EnviromentVariable.protocal)://\(EnviromentVariable.ip)/organization/\(GlobalVariables.user!.organization!.id)/contact/encode/recognition",
+            parameter: body,
+            header: ["session": GlobalVariables.session]) {
+                error, success, data in
+                guard let data = data, error == nil else {
+                    completion(error, false, nil)
+                    return
+                }
+                
+                guard let decoded = try? JSONDecoder().decode(RecognitionResponse.self, from: data) else {
+                    print("RecognitionService: Error decode failure \(String(decoding: data, as: UTF8.self))")
+                    completion(JSONDecoderError.decodeFailure, false, nil)
+                    return
+                }
+                
+                if decoded.accuracy == nil && decoded.statusCode == 500 && decoded.result == nil {
+                    completion(error, false, nil)
+                }
+                completion(nil, true, decoded)
+            }
+    }
 }

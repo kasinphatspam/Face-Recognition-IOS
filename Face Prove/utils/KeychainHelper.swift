@@ -17,7 +17,7 @@ class KeychainHelper {
             kSecValueData as String: data
         ]
         
-        var status = SecItemAdd(query as CFDictionary, nil)
+        let status = SecItemAdd(query as CFDictionary, nil)
         
         return status == errSecSuccess
     }

@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginActivity: View {
     
     @Binding var isLogin: Bool
+    @Binding var isJoinOrg: Bool
     @StateObject var viewModel = LoginViewModel()
     
     // alert dialog
@@ -89,11 +90,20 @@ struct LoginActivity: View {
              }
 
              if signal.command == "AUTH_LOGIN_COMPLETED" {
-                 self.isLogin = true
+                 Task {
+                     try await viewModel.fetch()
+                 }
                  
              } else if signal.command == "AUTH_LOGIN_FAILED" {
                  self.alertText = "Username or password you entered incorrect."
                  self.isPresentingAlert = true
+                 
+             } else if signal.command == "CHECK_ORGANIZATION_FAILED" {
+                 isJoinOrg = false
+                 isLogin = true
+             } else if signal.command == "CHECK_ORGANIZATION_COMPLETED" {
+                 isJoinOrg = true
+                 isLogin = true
              }
 
          }        
@@ -102,5 +112,5 @@ struct LoginActivity: View {
 }
 
 #Preview {
-    LoginActivity(isLogin: .constant(false))
+    LoginActivity(isLogin: .constant(false), isJoinOrg: .constant(false))
 }

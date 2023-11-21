@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GlobalVariables {
     static var session: String = ""
+    static var user: User? = nil
 }
 
 @main

@@ -7,21 +7,23 @@
 
 import Foundation
 
-struct Contact: Codable {
-    let firstname: String?
-    let lastname: String?
-    let contactCompany: String?
+struct Contact: Codable, Identifiable {
+    let id: Int
+    let firstname: String
+    let lastname: String
+    let company: String?
     let title: String?
     let officePhone: String?
-    let mobile: String?
-    let email1: String?
+    let mobile: String
+    let email1: String
     let email2: String?
-    let dob: Date?
-    let contactOwner: String?
-    let createdTime: Date?
+    let dob: String?
+    let owner: String?
+    let createdTime: String
+    let modifiedTime: String
     let lineId: String?
     let facebook: String?
-    let linkedIn: String?
+    let linkedin: String?
+    let encodedId: String?
     let image: String?
-    let organization: Organization?
 }

@@ -24,4 +24,21 @@ class LoginViewModel: ObservableObject {
             }
         }
     }
+    
+    func fetch() async throws {
+        try await authService.getCurrentUser { error, success, user in
+            if error != nil {
+                return
+            }
+            
+            if success {
+                if user?.organization == nil {
+                    self.signal.value = Signals(command: "CHECK_ORGANIZATION_FAILED")
+                    return
+                }
+                self.signal.value = Signals(command: "CHECK_ORGANIZATION_COMPLETED")
+            }
+        }
+       
+    }
 }
